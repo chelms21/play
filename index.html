@@ -1,0 +1,333 @@
+<html>
+<head>
+  <meta name="a.validate.02" content="eyH1fThdzMBZdAFOtclLukzrs-I4Jq_er8LV" />
+	<title>Coder Click</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="icon" href="/images/coderclickicon.png">
+	<link rel="stylesheet" href="style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<meta name="propeller" content="600b3860ff172f8a3bbd865e5d25cda5">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/offline-js/0.7.19/offline.min.js"></script>
+  <script async src="https://cdn.ampproject.org/v0.js">
+	</script>
+	<script async custom-element="amp-skimlinks" src="https://cdn.ampproject.org/v0/amp-skimlinks-0.1.js">
+	</script>
+  <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+</head>
+<body id="page_body" onload="pageload()" class="hexrain">
+  <div class="loader">
+    <h2 id="title">Coder Click</h2>
+    <div id="myProgress">
+      <div id="myBar"></div>
+    </div>
+  </div>
+	<div class="split left">
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+  <strong>Welcome back!</strong> You were away for <var id=secsSinceLastVisit3>0</var> seconds and earned <var id=incomecollect2>0</var> dollars!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+		<h2>Total Income: </h2>
+		<h2 id=totalincome>0</h2>
+		<h2 style="font-family: Trebuchet MS">Money: </h2>
+		<h3 id=clicks>0</h3>
+		<h4 id="clickincome">1</h4>
+		<h2 id="button" class="button"><img class="buttonimg" src="/images/cursor.png" style="width:250px;height:250px;"></h2><br>
+<div>
+  <h1>Leaderboard (not currently working)</h1>
+  <p id="player1name">Player 1</p>
+  <p id="player1score"></p>
+  <p id="player2name">Player 2</p>
+  <p id="player2score"></p>
+  <p id="player3name">Player 3</p>
+  <p id="player3score"></p>
+  <p id="player4name">Player 4</p>
+  <p id="player4score"></p>
+  <p id="player5name">Player 5</p>
+  <p id="player5score"></p>
+</div>  
+<div>
+<button id="save">SAVE</button><br>
+<button id="load">LOAD</button><br>
+<button id="reset">RESET</button><br>
+</div>
+</div>
+<div class="split right">
+<div id="shopsection" class="shopsection">
+  <div id="g_id_onload"
+         data-client_id="356771585063-g32r5eterqkm3dovksg55383b5vfot4f.apps.googleusercontent.com"
+         data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="sign_in_with"
+         data-shape="rectangular"
+         data-logo_alignment="left">
+      </div>
+<a id=signingoogle>Sign in with Google</a><br><br>
+<a id=signoutgoogle>Sign out of Google</a>
+<div id="firebaseui-auth-container"></div>
+<h2 id="toggleshop1">Toggle Shop</h2><br>
+<h2 i></h2><br>
+<h1>SHOP:</h1><br>
+<h2>BUY:</h2><br>
+<h2 id="prestige">Prestige for: </h2><var id=prestigecost>10000000</var><br><br>
+<h2>Prestige Level: </h2><var id=prestigelevel>0</var><br><br>
+<div class="row">
+  <div class="card col" style="width: 18rem;">
+  <img src="/images/coder.png" class="card-img-top">
+  <div class="card-body hexrain">
+    <h5 class="card-title white-text">Coder</h5>
+    <p class="card-text">Stats:</p>
+    <p class="card-text">1 money per second</p>
+    <p class="card-text">Cost:</p>
+    <p id=coderCost class="card-text">10</p>
+    <p class="card-text">Amount:</p>
+    <p id=coders class="card-text">0</p>
+    <p class="card-text">Income:</p>
+    <p id=coderincome class="card-text">0</p>
+    <a id="getcoder" class="btn btn-primary">Get</a>
+  </div>
+  </div>
+ <div class="card col" style="width: 18rem;">
+  <img src="/images/robot.png" class="card-img-top">
+  <div class="card-body hexrain">
+    <h5 class="card-title white-text">Robot</h5>
+    <p class="card-text">Stats:</p>
+    <p class="card-text">10 money per second</p>
+    <p class="card-text">Cost:</p>
+    <p id=robotCost class="card-text">100</p>
+    <p class="card-text">Amount:</p>
+    <p id=robots class="card-text">0</p>
+    <p class="card-text">Income:</p>
+    <p id=robotincome class="card-text">0</p>
+    <a id="getrobot" class="btn btn-primary">Get</a>
+  </div>
+</div>
+</div>
+<div class="row">
+ <div class="card col" style="width: 18rem;">
+  <img src="/images/gamedev.png" class="card-img-top">
+  <div class="card-body hexrain">
+    <h5 class="card-title white-text">Game Dev</h5>
+    <p class="card-text">Stats:</p>
+    <p class="card-text">50 money per second</p>
+    <p class="card-text">Cost:</p>
+    <p id=gamedevCost class="card-text">1000</p>
+    <p class="card-text">Amount:</p>
+    <p id=gamedevs class="card-text">0</p>
+    <p class="card-text">Income:</p>
+    <p id=gamedevincome class="card-text">0</p>
+    <a id="getgamedev" class="btn btn-primary">Get</a>
+  </div>
+  </div>
+<div class="card col" style="width: 18rem;">
+  <img src="/images/hacker.png" class="card-img-top">
+  <div class="card-body hexrain">
+    <h5 class="card-title white-text">Hacker</h5>
+    <p class="card-text">Stats:</p>
+    <p class="card-text">250 money per second</p>
+    <p class="card-text">Cost:</p>
+    <p id=hackerCost class="card-text">10000</p>
+    <p class="card-text">Amount:</p>
+    <p id=hackers class="card-text">0</p>
+    <p class="card-text">Income:</p>
+    <p id=hackerincome class="card-text">0</p>
+    <a id="gethacker" class="btn btn-primary">Get</a>
+  </div>
+  </div>
+</div>
+<div class="row">
+<div class="card col" style="width: 18rem;">
+  <img src="/images/devteam.png" class="card-img-top">
+  <div class="card-body hexrain">
+    <h5 class="card-title white-text">Dev Team</h5>
+    <p class="card-text">Stats:</p>
+    <p class="card-text">1000 money per second</p>
+    <p class="card-text">Cost:</p>
+    <p id=devteamCost class="card-text">10</p>
+    <p class="card-text">Amount:</p>
+    <p id=devteams class="card-text">0</p>
+    <p class="card-text">Income:</p>
+    <p id=devteamincome class="card-text">0</p>
+    <a id="getdevteam" class="btn btn-primary">Get</a>
+  </div>
+  </div>
+  <div class="card col" style="width: 18rem;">
+  <img src="/images/gamedistrib.png" class="card-img-top">
+  <div class="card-body hexrain">
+    <h5 class="card-title white-text">Game Distributor</h5>
+    <p class="card-text">Stats:</p>
+    <p class="card-text">10000 money per second</p>
+    <p class="card-text">Cost:</p>
+    <p id=gamedistribCost class="card-text">1000000</p>
+    <p class="card-text">Amount:</p>
+    <p id=gamedistribs class="card-text">0</p>
+    <p class="card-text">Income:</p>
+    <p id=gamedistribincome class="card-text">0</p>
+    <a id="getgamedistrib" class="btn btn-primary">Get</a>
+  </div>
+  </div>
+</div>
+<h2>SELL:</h2><br>
+<h3>coming soon</h3><br>
+<h1>EXTRA:</h1><br>
+<h3 id="enterdevoptions1">Dev Options</h3><br>
+<h2 id="gotodevlog1" target="_blank">devlog tes</h2><br>
+<p ><a class="bg-dark" href="https://github.com/chelms21/coderclickrepo/blob/main/CREDITS.md" target="_blank">CREDITS</a></p><br>
+<h3 id="gotolinks1"><a href="/linksandabout.html">Go to Links</a></h3>
+<div class="g-ytsubscribe" data-channelid="UCwPVNaN5u-W_UFUe3Ogr0Og" data-layout="full" data-count="default"></div><br><br>
+<amp-skimlinks layout="nodisplay" publisher-code="206846X1686351"></amp-skimlinks>
+</div>
+<div id="upgradesection" class="upgradesection">
+<h2 id="toggleshop2">Toggle Shop</h2><br>
+<h1>UPGRADES:</h1><br>
+<h2>coming soon</h2><br>
+<h1>EXTRA:</h1><br>
+<h2 id="gotodevlog2" target="_blank">devlog test</h2><br>
+<p><a href="https://github.com/chelms21/coderclickrepo/blob/main/CREDITS.md" target="_blank">CREDITS</a></p><br>
+<h3 id="gotolinks2"><a href="/linksandabout.html">Go to Links</a></h3>
+<div class="g-ytsubscribe" data-channelid="UCwPVNaN5u-W_UFUe3Ogr0Og" data-layout="full" data-count="default"></div><br><br>
+</div>
+<div id="prestigesection" class="prestigesection">
+<h2 id="toggleshop3">Toggle Shop</h2><br>
+<h1>PRESTIGE UPGRADES:</h1><br>
+<h2>coming soon</h2><br>
+<h2>5 prestiges: start with 10 coders</h2>
+<h2>10 prestiges: start with earlier levels and 10 robots</h2>
+<h2>15 prestiges: start with earlier levels and 10 gamedevs</h2>
+<h1>EXTRA:</h1><br>
+<h2 id="gotodevlog3" target="_blank">devlog test</h2><br>
+<p><a href="https://github.com/chelms21/coderclickrepo/blob/main/CREDITS.md" target="_blank">CREDITS</a></p><br>
+<h3 id="gotolinks3"><a href="/linksandabout.html">Go to Links</a></h3>
+<div class="g-ytsubscribe" data-channelid="UCwPVNaN5u-W_UFUe3Ogr0Og" data-layout="full" data-count="default"></div><br><br>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/keyboardjs/2.6.2/keyboard.min.js" integrity="sha512-Q9aijJKP9BeTXgQHmb/j8AZTQ15//k9QvGXCbKMf1bt289s75awi/3SBFZ3M3J27NtD7JyU3d9d1eRPuO4BbhQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/scripts/store.legacy.min.js"></script>
+<script src="https://apis.google.com/js/platform.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script data-ad-client="ca-pub-1700068440977389" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/df-number-format/2.1.6/jquery.number.min.js" integrity="sha512-3z5bMAV+N1OaSH+65z+E0YCCEzU8fycphTBaOWkvunH9EtfahAlcJqAVN2evyg0m7ipaACKoVk6S9H2mEewJWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="https://s.skimresources.com/js/206846X1686351.skimlinks.js"></script>
+<script src="/scripts/jqueryfunctions.js"></script>
+<script src="/index.js"></script>
+<script src="/scripts/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/globalize/1.7.0/globalize.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js"></script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+  import { getAuth, signOut, signInWithRedirect, getRedirectResult, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
+  import * as firebaseui from 'https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js';
+  import 'https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css';
+  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-database.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDziiPwxoGsgzOEgAcD-H0R20yk1rD9PXg",
+    authDomain: "coderclick.firebaseapp.com",
+    projectId: "coderclick",
+    storageBucket: "coderclick.appspot.com",
+    messagingSenderId: "356771585063",
+    appId: "1:356771585063:web:9ca34b337b2c87ce588202",
+    measurementId: "G-V2RJ94BLW0",
+    databaseURL: "https://coderclick-default-rtdb.firebaseio.com"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth();
+  const database = getDatabase(app);
+
+  function writeUserData(userId, name) {
+  set(ref(database, 'saves/' + userId), {
+    username: name
+  });
+}
+
+  function readUserData() {
+const dbRef = ref(getDatabase());
+get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    console.log(snapshot.val());
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
+  }
+
+getRedirectResult(auth)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access Google APIs.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+
+    // The signed-in user info.
+    const user = result.user;
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+
+    console.log(errorCode);
+    console.log(errorMessage);
+    // ...
+  });
+
+  function handleCredentialResponse(response) {
+  // Build Firebase credential with the Google ID token.
+  const idToken = response.credential;
+  const credential = GoogleAuthProvider.credential(idToken);
+
+  // Sign in with credential from the Google user.
+  signInWithCredential(auth, credential).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.email;
+    // The credential that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+}
+
+  handleCredentialResponse()
+
+document.getElementById('signingoogle').onclick = () => {
+  signInWithRedirect(auth, provider);
+}
+
+document.getElementById('signoutgoogle').onclick = () => {
+  signOut(auth);
+}
+
+function reloadpage() {
+  window.location.replace("/index.html");
+
+</script>
+<script type=module src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+</body>
+</html>

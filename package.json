@@ -1,0 +1,22 @@
+{
+  "name": "coder-click",
+  "version": "1.0.0",
+  "description": "lol",
+  "main": "index.html",
+  "dependencies": {
+    "date-and-time-utility": "^1.1.0",
+    "firebase": "^9.9.3",
+    "firebaseui": "^6.0.1",
+    "node": "^17.3.0",
+    "round": "^2.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chelms21/coderclickrepo.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
