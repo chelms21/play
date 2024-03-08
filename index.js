@@ -1,4 +1,4 @@
-try {
+  
 
   // general stuff
 
@@ -77,33 +77,33 @@ function move() {
 
   /////// ITEMS ///////////
 
-  let counter = 0;
-  let clickincome = 1;
-  let coders = 0;
-  let coderCost = 10;
-  let coderStartCost = 10;
-  let coderincome = 0;
-  let robots = 0;
-  let robotCost = 100;
-  let robotStartCost = 100;
-  let robotincome = 0;
-  let gamedevs = 0;
-  let gamedevCost = 1000;
-  let gamedevStartCost = 1000;
-  let gamedevincome = 0;
-  let hackers = 0;
-  let hackerCost = 10000;
-  let hackerStartCost = 10000;
-  let hackerincome = 0;
-  let devteams = 0;
-  let devteamCost = 100000;
-  let devteamStartCost = 100000;
-  let devteamincome = 0;
-  let gamedistribs = 0;
-  let gamedistribCost = 1000000;
-  let gamedistribStartCost = 1000000;
-  let gamedistribincome = 0;
-  let incomespeed = 1000;
+  var counter = 0;
+  var clickincome = 1;
+  var coders = 0;
+  var coderCost = 10;
+  var coderStartCost = 10;
+  var coderincome = 0;
+  var robots = 0;
+  var robotCost = 100;
+  var robotStartCost = 100;
+  var robotincome = 0;
+  var gamedevs = 0;
+  var gamedevCost = 1000;
+  var gamedevStartCost = 1000;
+  var gamedevincome = 0;
+  var hackers = 0;
+  var hackerCost = 10000;
+  var hackerStartCost = 10000;
+  var hackerincome = 0;
+  var devteams = 0;
+  var devteamCost = 100000;
+  var devteamStartCost = 100000;
+  var devteamincome = 0;
+  var gamedistribs = 0;
+  var gamedistribCost = 1000000;
+  var gamedistribStartCost = 1000000;
+  var gamedistribincome = 0;
+  var incomespeed = 1000;
 
   let neededmoney;
 
@@ -735,9 +735,7 @@ function load() {
   loadelements();
 }
 
-function pageload() {
-  load();
-}
+load();
 
 document.getElementById('reset').onclick = () => {
   counter = 0;
@@ -809,8 +807,4 @@ document.getElementById('gotodevlog2').onclick = () => {
 
 document.getElementById('gotodevlog3').onclick = () => {
   window.location.replace("/devlog.html");
-}
-
-} catch (error) {
-  console.error(error)
 }

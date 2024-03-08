@@ -17,7 +17,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
 </head>
-<body id="page_body" onload="pageload()" class="hexrain">
+<body id="page_body" onload="load()" class="hexrain">
   <div class="loader">
     <h2 id="title">Coder Click</h2>
     <div id="myProgress">
@@ -33,7 +33,7 @@
 		<h2 id=totalincome>0</h2>
 		<h2 style="font-family: Trebuchet MS">Money: </h2>
 		<h3 id=clicks>0</h3>
-		<h4 id="clickincome">1</h4>
+    <h4 id="clickincome">1</h4>
 		<h2 id="button" class="button"><img class="buttonimg" src="/images/cursor.png" style="width:250px;height:250px;"></h2><br>
 <div>
   <h1>Leaderboard (not currently working)</h1>
@@ -221,108 +221,72 @@
 <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js"></script>
 <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js"></script>
 <script type="module">
-  // Import the functions you need from the SDKs you need
+  
+function reloadpage() {
+  window.location.replace("/index.html");
+
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
   import { getAuth, signOut, signInWithRedirect, getRedirectResult, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js';
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
   import * as firebaseui from 'https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js';
   import 'https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css';
   import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-database.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
     apiKey: "AIzaSyDziiPwxoGsgzOEgAcD-H0R20yk1rD9PXg",
     authDomain: "coderclick.firebaseapp.com",
+    databaseURL: "https://coderclick-default-rtdb.firebaseio.com",
     projectId: "coderclick",
     storageBucket: "coderclick.appspot.com",
     messagingSenderId: "356771585063",
     appId: "1:356771585063:web:9ca34b337b2c87ce588202",
-    measurementId: "G-V2RJ94BLW0",
-    databaseURL: "https://coderclick-default-rtdb.firebaseio.com"
+    databaseURL: "https://coderclick-rtdb-default.firebaseio.com",
+    measurementId: "G-V2RJ94BLW0"
   };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
-  const provider = new GoogleAuthProvider();
-  const auth = getAuth();
-  const database = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+const analytics = getAnalytics(app);
 
-  function writeUserData(userId, name) {
-  set(ref(database, 'saves/' + userId), {
-    username: name
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+var uiConfig = {
+  callbacks: {
+    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+      // User successfully signed in.
+      // Return type determines whether we continue the redirect automatically
+      // or whether we leave that to developer to handle.
+      return true;
+    },
+    uiShown: function() {
+      // The widget is rendered.
+      // Hide the loader.
+      document.getElementById('loader').style.display = 'none';
+    }
+  },
+  // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+  signInFlow: 'popup',
+  signInSuccessUrl: 'coder-click.repl.co',
+  signInOptions: [
+    // Leave the lines as is for the providers you want to offer your users.
+    firebase.auth.GoogleAuthProvider.google.com
+  ],
+  // Terms of service url.
+  tosUrl: 'coder-click.repl.co',
+  // Privacy policy url.
+  privacyPolicyUrl: 'coder-click.repl.co'
+};
+
+ui.start('#firebaseui-auth-container', uiConfig);
+
+function writeUserData(userId, name, email, imageUrl) {
+  const db = getDatabase();
+  set(ref(db, 'users/' + userId), {
+    username: name,
+    email: email,
+    profile_picture : imageUrl
   });
 }
-
-  function readUserData() {
-const dbRef = ref(getDatabase());
-get(child(dbRef, `users/${userId}`)).then((snapshot) => {
-  if (snapshot.exists()) {
-    console.log(snapshot.val());
-  } else {
-    console.log("No data available");
-  }
-}).catch((error) => {
-  console.error(error);
-});
-  }
-
-getRedirectResult(auth)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-
-    // The signed-in user info.
-    const user = result.user;
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-
-    console.log(errorCode);
-    console.log(errorMessage);
-    // ...
-  });
-
-  function handleCredentialResponse(response) {
-  // Build Firebase credential with the Google ID token.
-  const idToken = response.credential;
-  const credential = GoogleAuthProvider.credential(idToken);
-
-  // Sign in with credential from the Google user.
-  signInWithCredential(auth, credential).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The credential that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
-}
-
-  handleCredentialResponse()
-
-document.getElementById('signingoogle').onclick = () => {
-  signInWithRedirect(auth, provider);
-}
-
-document.getElementById('signoutgoogle').onclick = () => {
-  signOut(auth);
-}
-
-function reloadpage() {
-  window.location.replace("/index.html");
 
 </script>
 <script type=module src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
