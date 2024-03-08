@@ -1,4 +1,40 @@
-  
+const animateCSS = (element, animation, prefix = 'animate__') =>
+  // We create a Promise and return it
+  new Promise((resolve, reject) => {
+    const animationName = `${prefix}${animation}`;
+    const node = document.querySelector(element);
+
+    node.classList.add(`${prefix}animated`, animationName);
+    node.style.setProperty('--animate-duration', '0.1s');
+
+    // When the animation ends, we clean the classes and resolve the Promise
+    function handleAnimationEnd(event) {
+      event.stopPropagation();
+      node.classList.remove(`${prefix}animated`, animationName);
+      resolve('Animation ended');
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd, {once: true});
+  });
+
+function abbrNum(number, decPlaces) {
+    decPlaces = Math.pow(10,decPlaces);
+    var abbrev = [ "k", "m", "b", "t" ];
+    for (var i=abbrev.length-1; i>=0; i--) {
+        var size = Math.pow(10,(i+1)*3);
+        if(size <= number) {
+             number = Math.round(number*decPlaces/size)/decPlaces;
+             if((number == 1000) && (i < abbrev.length - 1)) {
+                 number = 1;
+                 i++;
+             }
+             number += abbrev[i];
+             break;
+        }
+    }
+
+    return number;
+}
 
   // general stuff
 
@@ -14,8 +50,6 @@
     save();
     window.location.replace("/index.html");
   });
-
-  
 
 $("#shopsection").hide();
 $("#upgradesection").hide();
@@ -77,6 +111,7 @@ function move() {
 
   /////// ITEMS ///////////
 
+  var key = null;
   var counter = 0;
   var clickincome = 1;
   var coders = 0;
@@ -104,6 +139,11 @@ function move() {
   var gamedistribStartCost = 1000000;
   var gamedistribincome = 0;
   var incomespeed = 1000;
+  var usedkonamicode = false;
+  let totalincome = 0;
+
+  let prestigelevel = 1;
+  let prestigecost = 10000000;
 
   let neededmoney;
 
@@ -138,7 +178,7 @@ function move() {
     } else {
       return alert('Error');
     }
-  }
+  } 
 
   document.getElementById('button').onclick = () => {
     counter = counter + clickincome;
@@ -147,24 +187,17 @@ function move() {
 
   let buttonelement = document.getElementById("button").style;
 
-  function buttonclick() {
+  document.getElementById('button').onclick = () => {
     counter = counter + clickincome;
     document.getElementById('clicks').innerText = counter;
-    $("#button").css("background-color", "#3e8341");
-    $("#button").css("color", "white");
-    $("#button").css("border-radius", "50%");
-    $("#button").css("border-style", "solid");
-    $("#button").css("border-color", "blue");     setTimeout(function () {
-      $("#button").css("background-color", "#ddd");
-      $('#button').css("border-radius", "0%")
-      $("#button").css("border", "none");
-      $("#button").css("color", "black");
-    }, 100);
-  }
+    animateCSS('#button', 'bounceIn');
+  };
 
   keyboardJS.bind('space', (e) => {
   e.preventRepeat();
-  buttonclick();
+    counter = counter + clickincome;
+    document.getElementById('clicks').innerText = counter;
+    animateCSS('#button', 'bounceIn');
 });
 
   document.getElementById('getcoder').onclick = () => {
@@ -279,11 +312,6 @@ function move() {
     }
   }
 
-  let totalincome = 0;
-
-  let prestigelevel = 1;
-  let prestigecost = 10000000;
-
   function dancingpancake3(number) {
     prestigelevel = prestigelevel + number;
     clickincome = clickincome + number;
@@ -357,7 +385,7 @@ function move() {
       gamedistribincome = 0;
       prestigelevel = prestigelevel + 1;
       clickincome = clickincome + 1;
-      prestigecost = prestigecost + 5000000;
+      prestigecost = prestigelevel * 10000000;
       if (prestigelevel > 4) {
         coders = 10;
         coderincome = 10;
@@ -537,10 +565,22 @@ window.setInterval(function () {
     document.getElementById('devteamincome').innerText = devteamincome;
 }, 500);
 
+var displaycounter;
+var titleclicks;
+
 window.setInterval(function () {
   totalincome = coderincome + robotincome + gamedevincome + hackerincome + devteamincome + gamedistribincome;
   document.getElementById('totalincome').innerText = totalincome;
   document.getElementById('clicks').innerText = counter;
+  titleclicks = abbrNum(counter,2);
+  document.title = `Coder Click - ${titleclicks}`;
+  displaycounter = abbrNum(counter,2);
+  document.getElementById('displaycounter').innerText = displaycounter;
+  if (counter < 999) {
+    $("#displaycounter").hide();
+  } else {
+    $("#displaycounter").show();
+  }
 }, 100);
 
 document.getElementById('save').onclick = () => {
@@ -598,7 +638,8 @@ function save() {
     "gamedistribincome": gamedistribincome,
     "prestigecost": prestigecost,
     "prestigelevel": prestigelevel,
-    "lastVisit": lastVisit
+    "lastVisit": lastVisit,
+    "usedkonamicode": usedkonamicode
   });
 }
 
@@ -676,6 +717,7 @@ function load() {
   gamedistribincome = sd.gamedistribincome;
   prestigecost = sd.prestigecost;
   prestigelevel = sd.prestigelevel;
+  usedkonamicode = sd.usedkonamicode;
   const now = Date.now();
   const secsSinceLastVisit1 = now - sd.lastVisit;
   secsSinceLastVisit1.toFixed();
@@ -686,9 +728,11 @@ function load() {
   const incomecollect2 = Math.round(incomecollect);
   counter = sd.counter + incomecollect2;
   counter = Math.round(counter);
+  displaycounter = abbrNum(counter,3);
   document.getElementById('clicks').innerText = counter;
+  document.getElementById('displaycounter').innerText = displaycounter;
   document.getElementById('incomecollect2').innerText = incomecollect2;
-  document.getElementById('secsSinceLastVisit3').innerText = secsSinceLastVisit3;
+document.getElementById('secsSinceLastVisit3').innerText = secsSinceLastVisit3;
   document.getElementById('clickincome').innerText = clickincome;
   document.getElementById('totalincome').innerText = totalincome;
   document.getElementById('prestigecost').innerText = prestigecost;

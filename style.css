@@ -1,8 +1,5 @@
-@keyframes example {
-  0%   {background-color:gray; left:0px; top:0px;}
-  33%  {background-color:green; left:200px; top:0px;}
-  67%  {background-color:blue; left:200px; top:200px;}
-  100% {background-color:gray; left:0px; top:0px;}
+#button {
+  background-color: green
 }
 h2 {
     color: white;
@@ -44,6 +41,14 @@ var {
 
 #title {
   top: 50%;
+}
+#content {
+position: relative;
+}
+#content p {
+position: absolute;
+top: 0px;
+right: 0px;
 }
 
 #myBar {
@@ -131,29 +136,6 @@ h4 {
 
 .upgradesection {
   display: none;
-}
-
-.button {
-  background-color: #ddd;
-  border: none;
-  color: black;
-  background-image: url("/images/mouse.png");
-  padding: 16px 32px;
-  text-align: center;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition: 0.2s;
-  animation-name: example;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
-}
-
-.button:hover {
-  background-color: #3e8e41;
-  color: white;
-  border-radius: 50%;
-  border-style: solid;
-  border-color: blue;
 }
 
 .fa {
